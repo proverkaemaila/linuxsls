@@ -40,7 +40,7 @@ const save = (params, callback) => {
                 imagemin(['/tmp/inputFile.{jpg,png}'], '/tmp/images', {
                     plugins: [
                         jpegtran(),
-                        imageminPngquant({quality: 70, speed: 6})
+                        imageminPngquant({quality: 80, speed: 6})
                     ]
                 }).then(files => {
                     console.log(+ new Date() - time1);
