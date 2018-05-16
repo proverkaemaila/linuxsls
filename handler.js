@@ -50,6 +50,7 @@ const save = (params, callback) => {
                     console.log('ERROR: ' + e);
                 });
             } else {
+                fs.unlinkSync(tmpFile);
                 resolve(buff);
             }
     });
