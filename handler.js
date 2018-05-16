@@ -82,7 +82,7 @@ console.log('twst2');
             // });
 
 
-            imagemin(['/tmp/inputFile.{jpg,png}'], 'tmp/images', {
+            imagemin(['/tmp/inputFile.{jpg,png}'], '/tmp/images', {
                 plugins: [
                     jpegtran(),
                     optipng({optimizationLevel: 7})
