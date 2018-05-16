@@ -81,7 +81,7 @@ console.log('twst2');
                 //=> [{data: <Buffer 89 50 4e â€¦>, path: 'build/images/foo.jpg'}, â€¦]
             }).catch((e) => {
                 console.log('ERROR: ' + e);
-            };
+            });
 
             // imagemin.buffer(buff, {
             //   plugins: [
