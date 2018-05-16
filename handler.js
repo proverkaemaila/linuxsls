@@ -70,16 +70,16 @@ const save = (params, callback) => {
 console.log('twst2');
 
 
-            compress_images('/tmp/inputFile.{jpg,JPG,jpeg,JPEG,png,svg,gif}', '/tmp/result', {compress_force: false, statistic: true, autoupdate: true}, false,
-                {jpg: {engine: 'mozjpeg', command: ['-quality', '60']}},
-                {png: {engine: 'pngquant', command: ['--quality=20-50']}},
-                {svg: {engine: 'svgo', command: '--multipass'}},
-                {gif: {engine: 'gifsicle', command: ['--colors', '64', '--use-col=web']}}, function(obj){
-                    console.log('work hard');
-                    console.log(obj.output);
-                    let result = fs.readFileSync(obj.output);
-                    resolve(new Buffer(result));
-            });
+            // compress_images('/tmp/inputFile.{jpg,JPG,jpeg,JPEG,png,svg,gif}', '/tmp/result', {compress_force: false, statistic: true, autoupdate: true}, false,
+            //     {jpg: {engine: 'mozjpeg', command: ['-quality', '60']}},
+            //     {png: {engine: 'pngquant', command: ['--quality=20-50']}},
+            //     {svg: {engine: 'svgo', command: '--multipass'}},
+            //     {gif: {engine: 'gifsicle', command: ['--colors', '64', '--use-col=web']}}, function(obj){
+            //         console.log('work hard');
+            //         console.log(obj.output);
+            //         let result = fs.readFileSync(obj.output);
+            //         resolve(new Buffer(result));
+            // });
 
 
             // imagemin(['/tmp/inputFile.{jpg,png}'], 'tmp/images', {
@@ -95,18 +95,18 @@ console.log('twst2');
             //     console.log('ERROR: ' + e);
             // });
 
-            // imagemin.buffer(buff, {
-            //   plugins: [
-            //     jpegtran(),
-            //     optipng({optimizationLevel: 7})
-            //   ]
-            // }).then(function(result_buf) {
-            //   console.log("Optimized! Final file size is " + result_buf.length + " bytes");
-            //   resolve(result_buf);
-            // }).catch(function(err){
-            //   console.log("failed to optimize", err);
-            //   resolve(buff);
-            // });
+            imagemin.buffer(buff, {
+              plugins: [
+                jpegtran(),
+                optipng({optimizationLevel: 7})
+              ]
+            }).then(function(result_buf) {
+              console.log("Optimized! Final file size is " + result_buf.length + " bytes");
+              resolve(result_buf);
+            }).catch(function(err){
+              console.log("failed to optimize", err);
+              resolve(buff);
+            });
 
 
             // IM.resize({
