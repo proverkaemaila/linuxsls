@@ -82,12 +82,14 @@ const save = (params, callback) => {
             // });
 
             if(params.format === 'png'){
+                let time1 = + new Date();
                 imagemin(['/tmp/inputFile.{jpg,png}'], '/tmp/images', {
                     plugins: [
                         jpegtran(),
                         optipng({optimizationLevel: 5, bitDepthReduction: true, colorTypeReduction: true, paletteReduction: true})
                     ]
                 }).then(files => {
+                    console.log(+ new Date() - time1);
                     resolve(files[0].data);
                 }).catch((e) => {
                     console.log('ERROR: ' + e);
