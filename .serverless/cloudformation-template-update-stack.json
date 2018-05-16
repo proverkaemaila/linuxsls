@@ -92,7 +92,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/image-optimizer/dev/1526469945339-2018-05-16T11:25:45.339Z/image-optimizer.zip"
+          "S3Key": "serverless/image-optimizer/dev/1526472297749-2018-05-16T12:04:57.749Z/image-optimizer.zip"
         },
         "FunctionName": "image-optimizer-dev-imgOptimize",
         "Handler": "handler.imgOptimize",
@@ -236,7 +236,7 @@
         "MethodResponses": []
       }
     },
-    "ApiGatewayDeployment1526469945377": {
+    "ApiGatewayDeployment1526472297784": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
