@@ -5,6 +5,7 @@ const IM = require('imagemagick');
 const imagemin = require("imagemin");
 const jpegtran = require("imagemin-jpegtran");
 const optipng = require("imagemin-optipng");
+const imageminPngquant = require('imagemin-pngquant');
 const childProcess = require('child_process');
 
 const compress_images = require('compress-images');
@@ -86,10 +87,11 @@ const save = (params, callback) => {
                 imagemin(['/tmp/inputFile.{jpg,png}'], '/tmp/images', {
                     plugins: [
                         jpegtran(),
-                        optipng({optimizationLevel: 5, bitDepthReduction: true, colorTypeReduction: true, paletteReduction: true})
+                        imageminPngquant({quality: 50})
                     ]
                 }).then(files => {
                     console.log(+ new Date() - time1);
+                    fs.unlinkSync(tmpFile);
                     resolve(files[0].data);
                 }).catch((e) => {
                     console.log('ERROR: ' + e);
@@ -189,7 +191,6 @@ const save = (params, callback) => {
             // }
     });
     mainProcess.then(buffer => {
-        console.log(buffer);
         return S3.putObject({
           Body: buffer,
           Bucket: params.bucket,
