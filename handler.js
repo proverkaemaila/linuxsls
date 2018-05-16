@@ -70,18 +70,30 @@ const save = (params, callback) => {
 console.log('twst2');
 
 
-            imagemin(['/tmp/inputFile.{jpg,png}'], 'tmp/images', {
-                plugins: [
-                    jpegtran(),
-                    optipng({optimizationLevel: 7})
-                ]
-            }).then(files => {
-                console.log(files[0].path);
-                resolve(files[0].data);
-                //=> [{data: <Buffer 89 50 4e â€¦>, path: 'build/images/foo.jpg'}, â€¦]
-            }).catch((e) => {
-                console.log('ERROR: ' + e);
+            compress_images('/tmp/inputFile.{jpg,JPG,jpeg,JPEG,png,svg,gif}', '/tmp/result', {compress_force: false, statistic: true, autoupdate: true}, false,
+                {jpg: {engine: 'mozjpeg', command: ['-quality', '60']}},
+                {png: {engine: 'pngquant', command: ['--quality=20-50']}},
+                {svg: {engine: 'svgo', command: '--multipass'}},
+                {gif: {engine: 'gifsicle', command: ['--colors', '64', '--use-col=web']}}, function(obj){
+                    console.log('work hard');
+                    console.log(obj.output);
+                    let result = fs.readFileSync(obj.output);
+                    resolve(new Buffer(result));
             });
+
+
+            // imagemin(['/tmp/inputFile.{jpg,png}'], 'tmp/images', {
+            //     plugins: [
+            //         jpegtran(),
+            //         optipng({optimizationLevel: 7})
+            //     ]
+            // }).then(files => {
+            //     console.log(files[0].path);
+            //     resolve(files[0].data);
+            //     //=> [{data: <Buffer 89 50 4e â€¦>, path: 'build/images/foo.jpg'}, â€¦]
+            // }).catch((e) => {
+            //     console.log('ERROR: ' + e);
+            // });
 
             // imagemin.buffer(buff, {
             //   plugins: [
