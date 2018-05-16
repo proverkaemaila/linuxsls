@@ -85,7 +85,7 @@ const save = (params, callback) => {
                 imagemin(['/tmp/inputFile.{jpg,png}'], '/tmp/images', {
                     plugins: [
                         jpegtran(),
-                        optipng({optimizationLevel: 7, bitDepthReduction: true, colorTypeReduction: true, paletteReduction: true})
+                        optipng({optimizationLevel: 5, bitDepthReduction: true, colorTypeReduction: true, paletteReduction: true})
                     ]
                 }).then(files => {
                     resolve(files[0].data);
