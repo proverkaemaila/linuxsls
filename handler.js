@@ -69,7 +69,7 @@ const save = (params, callback) => {
             
 console.log('twst2');
 
-            imagemin.buffer(buff, {
+            imagemin().buffer(buff, {
               plugins: [
                 jpegtran(),
                 optipng({optimizationLevel: 7})
@@ -203,7 +203,6 @@ const messageResponse = (message) => {
     }
 */
 module.exports.imgOptimize = (event, context, callback) => {
-    process.env.PATH = process.env.PATH + ':/var/task';
     let params = event || {},
         action = (params && params.action) ? params.action : null;
     if(!params.base64Image && params.url){
