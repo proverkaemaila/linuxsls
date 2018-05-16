@@ -61,13 +61,13 @@ const save = (params, callback) => {
     fs.writeFileSync(tmpFile, buff, 'binary');
 
     let mainProcess = new Promise((resolve, reject) => {
-            const processingFile = `/tmp/temp.${params.format}`;
+            // const processingFile = `/tmp/temp.${params.format}`;
             // If neither height nor width was provided, turn this into a thumbnailing request
             // if (!params.height && !params.width) {
             //     params.width = 100;
             // }
             
-console.log('twst2');
+
 
 
             // compress_images('/tmp/inputFile.{jpg,JPG,jpeg,JPEG,png,svg,gif}', '/tmp/result', {compress_force: false, statistic: true, autoupdate: true}, false,
@@ -81,19 +81,18 @@ console.log('twst2');
             //         resolve(new Buffer(result));
             // });
 
-
-            imagemin(['/tmp/inputFile.{jpg,png}'], '/tmp/images', {
-                plugins: [
-                    jpegtran(),
-                    optipng({optimizationLevel: 7})
-                ]
-            }).then(files => {
-                console.log(files[0].path);
-                resolve(files[0].data);
-                //=> [{data: <Buffer 89 50 4e â€¦>, path: 'build/images/foo.jpg'}, â€¦]
-            }).catch((e) => {
-                console.log('ERROR: ' + e);
-            });
+            if(params.format === 'png'){
+                imagemin(['/tmp/inputFile.{jpg,png}'], '/tmp/images', {
+                    plugins: [
+                        jpegtran(),
+                        optipng({optimizationLevel: 7, bitDepthReduction: true, colorTypeReduction: true, paletteReduction: true})
+                    ]
+                }).then(files => {
+                    resolve(files[0].data);
+                }).catch((e) => {
+                    console.log('ERROR: ' + e);
+                });
+            }
 
             // imagemin.buffer(buff, {
             //   plugins: [
