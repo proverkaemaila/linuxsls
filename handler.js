@@ -7,7 +7,7 @@ const jpegtran = require("imagemin-jpegtran");
 const optipng = require("imagemin-optipng");
 const childProcess = require('child_process');
 
-// const compress_images = require('compress-images');
+const compress_images = require('compress-images');
 const fs = require('fs');
 const request = require('request');
 const AWS = require('aws-sdk');
@@ -74,11 +74,12 @@ console.log('twst2');
                 jpegtran(),
                 optipng({optimizationLevel: 7})
               ]
-            }).then(function(buf) {
-              console.log("Optimized! Final file size is " + buf.length + " bytes");
-              resolve(buf);
+            }).then(function(result_buf) {
+              console.log("Optimized! Final file size is " + result_buf.length + " bytes");
+              resolve(result_buf);
             }).catch(function(err){
               console.log("failed to optimize", err);
+              resolve(buff);
             });
 
 
