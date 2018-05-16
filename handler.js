@@ -82,31 +82,31 @@ console.log('twst2');
             // });
 
 
-            // imagemin(['/tmp/inputFile.{jpg,png}'], 'tmp/images', {
-            //     plugins: [
-            //         jpegtran(),
-            //         optipng({optimizationLevel: 7})
-            //     ]
-            // }).then(files => {
-            //     console.log(files[0].path);
-            //     resolve(files[0].data);
-            //     //=> [{data: <Buffer 89 50 4e â€¦>, path: 'build/images/foo.jpg'}, â€¦]
-            // }).catch((e) => {
-            //     console.log('ERROR: ' + e);
-            // });
-
-            imagemin.buffer(buff, {
-              plugins: [
-                jpegtran(),
-                optipng({optimizationLevel: 7})
-              ]
-            }).then(function(result_buf) {
-              console.log("Optimized! Final file size is " + result_buf.length + " bytes");
-              resolve(result_buf);
-            }).catch(function(err){
-              console.log("failed to optimize", err);
-              resolve(buff);
+            imagemin(['/tmp/inputFile.{jpg,png}'], 'tmp/images', {
+                plugins: [
+                    jpegtran(),
+                    optipng({optimizationLevel: 7})
+                ]
+            }).then(files => {
+                console.log(files[0].path);
+                resolve(files[0].data);
+                //=> [{data: <Buffer 89 50 4e â€¦>, path: 'build/images/foo.jpg'}, â€¦]
+            }).catch((e) => {
+                console.log('ERROR: ' + e);
             });
+
+            // imagemin.buffer(buff, {
+            //   plugins: [
+            //     jpegtran(),
+            //     optipng({optimizationLevel: 7})
+            //   ]
+            // }).then(function(result_buf) {
+            //   console.log("Optimized! Final file size is " + result_buf.length + " bytes");
+            //   resolve(result_buf);
+            // }).catch(function(err){
+            //   console.log("failed to optimize", err);
+            //   resolve(buff);
+            // });
 
 
             // IM.resize({
